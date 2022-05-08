@@ -18,6 +18,7 @@ bootstrap = Bootstrap5(app)
 def home():
     return render_template('home.html')
 
+# Worked on by: Pedro
 # Pokemon info route
 @app.route('/info')
 def info():
