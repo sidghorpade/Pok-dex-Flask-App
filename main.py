@@ -19,7 +19,7 @@ def home():
     return render_template('home.html')
 
 # Pokemon info route
-@app.route('/info')
+@app.route('/info') 
 def info():
     return render_template('info.html')
   
