@@ -1,18 +1,23 @@
+# Title: info.py
+# Description: Holds functions and/or data used by the info route in main.py
+
 from main import *
 
 # Worked on by: Pedro
 # Returns preprocessed dictionary of a pokemon's evolution chain
-# Key: ID
+# Key: Pokemon ID
 # Value: Name
 def preprocess_evolution(evolution_json):
     evolution_dict = {}
     
+    # While loop will run until end of evolution chain is reached
     while True:
         name = evolution_json["species"]["name"]
         id = evolution_json["species"]["url"].split('/')[-2]
 
         evolution_dict[id] = name
 
+        # If this length is not 0, end of chain has not been reached
         if len(evolution_json["evolves_to"]) != 0:
             evolution_json = evolution_json["evolves_to"][0]
         else:
@@ -23,32 +28,42 @@ def preprocess_evolution(evolution_json):
 # Worked on by: Pedro
 # Returns preprocessed dictionary of the generations and games that a pokemon appears in
 # Key: Gen Numbers
-# Value: Array of Game Names
+# Values: Pokemon Sprite
+#         Array of Games
 def preprocess_versions(generations, id):
     gen_dict = {}
     gens_to_delete = []
 
+    # Determines which generations a pokemon is not a part of
     for generation in generations:
         if generation_counts[generation] < id:
             gens_to_delete.append(generation)
         else:
             break
 
+    # Deletes irrelevant generation data
     for gen in gens_to_delete:
         del generations[gen]
 
+    # Parse through remaining generations to generation 
+    # a preprocessed generation dictionary
     for generation in generations:
         games = generations[generation].__dict__
+        # This will be index for new dictionary
         gen_num = generation.split('-')[-1]
 
         game_names = []
         sprite = ""
 
+        # Parse through games in current generation to
+        # see which games this pokemon appears in
         for game in games:
             front_sprite = games[game].__dict__["front_default"]
+            # If there is a front sprite, the pokemon appears in current game
             if front_sprite != None:
                 sprite = front_sprite
                 names = game.split('-')
+                # Does some checks because of weird API data to ensure correct values are stored in dictionary
                 for name in names:
                     if name == 'icons':
                         if generation == 'generation-vii':
@@ -64,10 +79,12 @@ def preprocess_versions(generations, id):
                     else:
                         game_names.append(name)
 
+        # Include Black & White 2
         if generation == 'generation-v':
             game_names.append('black2')
             game_names.append('white2')
 
+        # Append new entry into our the dictionary
         data = {}
         data["sprite"] = sprite
         data["games"] = game_names
@@ -75,17 +92,31 @@ def preprocess_versions(generations, id):
     
     return gen_dict
 
-generation_names = {
-    'generation-i': ['red', 'blue', 'yellow'], 
-    'generation-ii': ['gold', 'silver', 'crystal'], 
-    'generation-iii': ['ruby', 'sapphire', 'emerald', 'firered', 'leafgreen'], 
-    'generation-iv': ['diamond', 'pearl', 'platinum', 'heartgold', 'soulsilver'], 
-    'generation-v': ['white', 'black', 'white2', 'black2'],
-    'generation-vi': ['x', 'y', 'omegaruby', 'alphasapphire'], 
-    'generation-vii': ['sun', 'moon', 'ultrasun', 'ultramoon'], 
-    'generation-viii': ['sword', 'shield']
-}
+def preprocess_stats(stats):
+    stats_dict = {}
 
+    for stat in stats:
+        base_stat = stat.__dict__['base_stat']
+        name = stat.__dict__['stat'].__dict__['name']
+        stats_dict[name] = base_stat
+
+    print(stats_dict)
+    return stats_dict
+
+def preprocess_habitats(habitats, name):
+    habitat_list = []
+
+    for habitat in habitats:
+        pokemon = habitats[habitat]
+        for p in pokemon:
+            if p.name == name:
+                habitat_list.append(habitat)
+                break
+
+    return habitat_list
+
+# Used to determine which generations to discard
+# Values are last Pokemon ID from corresponding generation
 generation_counts = {
     'generation-i': 151, 
     'generation-ii': 251, 

@@ -1,15 +1,18 @@
+<!-- Worked on by: Pedro -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info</title>
+    <title>Pokemon Info</title>
     <link href="{{ url_for ('static', filename='css/info.css') }}" rel="stylesheet">
     {{ bootstrap.load_css() }}
 </head>
 <body>
 
+    <!-- Basic Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Pokedex</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +36,8 @@
         </div>
     </nav>
 
+    <br>
+
     <header id="info-header">
         <img id="pokeball-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1026px-Pok%C3%A9_Ball_icon.svg.png" alt="pokeball">
         <h1 class="heading"><b>{{ pokemon.name }}</b></h1>
@@ -40,18 +45,33 @@
 
     <hr>
 
+    <!-- Pokemon Info Container
+            Pokemon Image
+            Pokemon Dex Number
+            Pokemon Description
+            Pokemon Type(s)
+            Pokemon Stats       -->
     <div id="info-container" class="container">
         <div class="row">
             <div class="col">
                 <figure id="pokemon-image-fig">
                     <img id="main-pokemon-img" src="https://cdn.traction.one/pokedex/pokemon/{{ pokemon.id }}.png" alt="Charmander" >
-                    <figcaption id="pokemon-id"> <b>#{{ pokemon.id }}</b> </figcaption>
+                    <div id="metadata-row" class="row justify-content-md-center">
+                        <div class="col-md-auto">
+                            <figcaption id="pokemon-id"><b>#{{ pokemon.id }}</b> </figcaption>
+                        </div>
+                        <div id="exp-height-weight" class="col">
+                            <br>
+                            <figcaption><b>Base EXP: </b>{{ pokemon.base_experience }}</figcaption>
+                            <figcaption><b>Height: </b>{{ pokemon.height }}</figcaption>
+                            <figcaption><b>Weight: </b>{{ pokemon.weight }}</figcaption>
+                        </div>
+                    </div>
                 </figure>
             </div>
             <div class="col">
                 <p id="pokemon-bio">
                     <b>Description:</b>
-                    <br>
                     <p>{{ bio }}</p>
                 </p>
                 <b>Types:</b>
@@ -62,10 +82,21 @@
                         </a>
                     {% endfor %}
                 </div>
-                <div class="stats">
-                    
-                </div>
+                <b>Found In:</b>
+                {% for habitat in habitat_list %}
+                    <figure class="habitat-fig">
+                        <img class="habitats" src="/static/images/habitats/{{ habitat }}.png" alt="{{ habitat }}">
+                        <figcaption><a href="#">{{ habitat }}</a></figcaption>
+                    </figure>
+                {% endfor %}
             </div>
+        </div>
+        <b>Stats:</b>
+        <div class="stats">
+            {% for stat in stats %}
+                <b>{{ stat }}: </b>
+                <span>{{ stats[stat] }}</span>
+            {% endfor %}
         </div>
     </div>
 
@@ -73,6 +104,7 @@
 
     <h1 class="heading"><b>Evolution Chain</b></h1>
 
+    <!-- Pokemon Evolution Chain Container -->
     <div id="evolution-container" class="container">
         <div class="row justify-content-md-center">
             {% for id in evolution_dict %}
@@ -90,6 +122,7 @@
 
     <br>
 
+    <!-- Generations Table -->
     <div class="container">
         <div id="gen-row" class="row">
             <div class="col">
@@ -123,14 +156,6 @@
     </div>
 
     <br>
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="heading"><b>Habitats</b></h1>
-            </div>
-        </div>
-    </div>
     
 </body>
 </html>
