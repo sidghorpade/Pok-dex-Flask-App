@@ -1,5 +1,5 @@
 # Title: main.py
-# Description: Holds Flaks application code and all routes to web pages
+# Description: Holds Flask application code and all routes to web pages
 
 from ensurepip import version
 from info import preprocess_evolution, preprocess_versions

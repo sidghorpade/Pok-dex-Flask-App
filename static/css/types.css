@@ -1,0 +1,50 @@
+body {
+    background-color: red;
+}
+
+#types-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#types-title {
+    text-align: center;
+    color: yellow;
+    text-shadow: 4px 4px black;
+    font-family: sans-serif;
+    font-size: 50px;
+    padding-left: 10px;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+   }
+
+.types-picture{
+    background-color: white;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 300px;
+    height: 300px;
+    
+}
+
+.types-row{
+    justify-content: center;
+    display: flex;
+}
+
+figcaption{
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    color: yellow;
+    text-shadow: 2px 2px black;
+    font-family: sans-serif;
+    font-size: 25px;
+    padding-left: 10px;
+    padding-top:10px ;
+}
