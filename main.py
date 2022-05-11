@@ -26,8 +26,8 @@ def home():
 
 # Worked on by: Pedro
 # Pokemon info route
-@app.route('/info/<name>/<transformation>')
-def info(name, transformation):
+@app.route('/info/<transformation>/<name>')
+def info(transformation, name):
     pokemon = pb.pokemon(name)
     bio = pokemon.species.flavor_text_entries[0].__dict__['flavor_text']
     img_url = "https://cdn.traction.one/pokedex/pokemon/" + str(pokemon.id) + ".png"

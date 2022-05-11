@@ -65,10 +65,10 @@
                             Transform Image
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='normal') }}">Normal</a>
-                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='grayscale') }}">Grayscale</a>
-                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='negative') }}">Negative</a>
-                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='sepia') }}">Sepia</a>
+                            <a class="dropdown-item" href="{{ url_for('info', transformation='normal', name=pokemon.name) }}">Normal</a>
+                            <a class="dropdown-item" href="{{ url_for('info', transformation='grayscale', name=pokemon.name) }}">Grayscale</a>
+                            <a class="dropdown-item" href="{{ url_for('info', transformation='negative', name=pokemon.name) }}">Negative</a>
+                            <a class="dropdown-item" href="{{ url_for('info', transformation='sepia', name=pokemon.name) }}">Sepia</a>
                         </div>
                     </div>
                     <div id="metadata-row" class="row justify-content-md-center">
@@ -121,7 +121,7 @@
             {% for id in evolution_dict %}
                 <div id="evolution-col" class="col-md-auto">
                     <figure class="evolution-img-fig">
-                        <a href="{{ url_for('info', name=evolution_dict[id], transformation='normal') }}">
+                        <a href="{{ url_for('info', transformation='normal', name=evolution_dict[id]) }}">
                             <img id="evolution-img" src="https://cdn.traction.one/pokedex/pokemon/{{ id }}.png" alt="Evolution Chain Image">
                         </a>
                         <figcaption id="evolution-name"><b>{{ evolution_dict[id] }}</b></figcaption>
