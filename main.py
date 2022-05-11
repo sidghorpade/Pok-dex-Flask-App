@@ -5,6 +5,7 @@ from ensurepip import version
 from info import preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
 import random
 import pokebase as pb
+import urllib.request
 import requests, json
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
@@ -29,6 +30,9 @@ def info(name):
     pokemon = pb.pokemon(name)
     bio = pokemon.species.flavor_text_entries[0].__dict__['flavor_text']
 
+    img_url = "https://cdn.traction.one/pokedex/pokemon/" + str(pokemon.id) + ".png"
+    
+
     stats = preprocess_stats(pokemon.stats)
 
     # try except to preprocess pokemon's evolution data
@@ -51,7 +55,7 @@ def info(name):
 
     print(habitat_list)
     
-    return render_template('info.html', pokemon=pokemon, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list)
+    return render_template('info.html', pokemon=pokemon, img_url=img_url, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list)
   
 # Lists Pokemon types
 @app.route('/types')

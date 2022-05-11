@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon Info</title>
-    <link href="{{ url_for ('static', filename='css/info.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/info.css') }}" rel="stylesheet">
     {{ bootstrap.load_css() }}
 </head>
 <body>
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col">
                 <figure id="pokemon-image-fig">
-                    <img id="main-pokemon-img" src="https://cdn.traction.one/pokedex/pokemon/{{ pokemon.id }}.png" alt="Charmander" >
+                    <img id="main-pokemon-img" src="{{ img_url }}" alt="Charmander" >
                     <div id="metadata-row" class="row justify-content-md-center">
                         <div class="col-md-auto">
                             <figcaption id="pokemon-id"><b>#{{ pokemon.id }}</b> </figcaption>
