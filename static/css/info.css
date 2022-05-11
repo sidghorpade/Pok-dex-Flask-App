@@ -1,3 +1,7 @@
+span {
+    text-transform: capitalize;
+}
+
 body {
     background: linear-gradient(red, orange);
     background-attachment: fixed;
@@ -35,6 +39,14 @@ body {
     padding: 10px;
 }
 
+#dropdown-container {
+    display: grid;
+}
+
+#dropdown-button {
+    margin: auto;
+}
+
 #pokemon-image-fig {
     padding: 10px;
 }
@@ -46,12 +58,23 @@ body {
     width: 350px;
 }
 
+#metadata-row {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #pokemon-id {
     background: -webkit-linear-gradient(silver, black);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    padding-left: 10px;
+    padding-left: 20px;
     font-size: 70px;
+}
+
+#exp-height-weight {
+    font-size: large;
+    padding-left: 20px;
 }
 
 #pokemon-bio {
@@ -65,14 +88,14 @@ body {
 
 .evolution-img-fig {
     background: white;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 5px 5px black;
     padding: 10px;
 }
 
 #evolution-img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -85,7 +108,16 @@ body {
 
 .types {
     padding: 5px;
-    height: 100%;
+}
+
+.habitat-fig {
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.habitats {
+    width: auto;
+    height: 150px;
 }
 
 #evolution-name a {
@@ -107,6 +139,7 @@ body {
 }
 
 table {
+    box-shadow: 5px 5px black;
     background-color: white;
 }
 
