@@ -44,3 +44,10 @@ def info(name):
 @app.route('/types')
 def types():
     return render_template('types.html')
+
+
+# Pokemon Type Pages
+@app.route('/types/<type>')
+def selectedType(type):
+    pokeType=pb.type_(type)
+    return render_template('selectedType.html')
