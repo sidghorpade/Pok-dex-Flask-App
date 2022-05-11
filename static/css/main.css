@@ -1,0 +1,11 @@
+
+body{background: red;}
+#Poke-Home{
+    justify-content: center;
+    display: flex;
+    background-color: white;
+}
+nav{
+    justify-content: right;
+    
+}
