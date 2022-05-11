@@ -3,14 +3,15 @@
 
 from ensurepip import version
 from info import preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
+from transformations import transform_image
 import random
 import pokebase as pb
-import urllib.request
 import requests, json
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from pprint import pprint
 from PIL import Image
+from io import BytesIO
 
 # creating flask appliation
 app = Flask(__name__)
@@ -25,13 +26,16 @@ def home():
 
 # Worked on by: Pedro
 # Pokemon info route
-@app.route('/info/<name>')
-def info(name):
+@app.route('/info/<name>/<transformation>')
+def info(name, transformation):
     pokemon = pb.pokemon(name)
     bio = pokemon.species.flavor_text_entries[0].__dict__['flavor_text']
-
     img_url = "https://cdn.traction.one/pokedex/pokemon/" + str(pokemon.id) + ".png"
-    
+
+    response = requests.get(img_url)
+
+    img = Image.open(BytesIO(response.content))
+    img_tag = transform_image(img, transformation)
 
     stats = preprocess_stats(pokemon.stats)
 
@@ -55,7 +59,7 @@ def info(name):
 
     print(habitat_list)
     
-    return render_template('info.html', pokemon=pokemon, img_url=img_url, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list)
+    return render_template('info.html', pokemon=pokemon, img_tag=img_tag, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list)
   
 # Lists Pokemon types
 @app.route('/types')

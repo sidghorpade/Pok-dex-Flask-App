@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <link href="{{ url_for('static', filename='css/info.css') }}" rel="stylesheet">
     {{ bootstrap.load_css() }}
 </head>
@@ -52,10 +55,22 @@
             Pokemon Type(s)
             Pokemon Stats       -->
     <div id="info-container" class="container">
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
                 <figure id="pokemon-image-fig">
-                    <img id="main-pokemon-img" src="{{ img_url }}" alt="Charmander" >
+                    <img id="main-pokemon-img" src="{{ img_tag }}" alt="{{ pokemon.name }}" >
+                    <br>
+                    <div id="dropdown-container" class="btn-group">
+                        <button id="dropdown-button" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown" aria-expanded="false">
+                            Transform Image
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='normal') }}">Normal</a>
+                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='grayscale') }}">Grayscale</a>
+                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='negative') }}">Negative</a>
+                            <a class="dropdown-item" href="{{ url_for('info', name=pokemon.name, transformation='sepia') }}">Sepia</a>
+                        </div>
+                    </div>
                     <div id="metadata-row" class="row justify-content-md-center">
                         <div class="col-md-auto">
                             <figcaption id="pokemon-id"><b>#{{ pokemon.id }}</b> </figcaption>
@@ -71,10 +86,10 @@
             </div>
             <div class="col">
                 <p id="pokemon-bio">
-                    <b>Description:</b>
+                    <h3><b>Description:</b></h3>
                     <p>{{ bio }}</p>
                 </p>
-                <b>Types:</b>
+                <h3><b>Types:</b></h3>
                 <div class="types">
                     {% for type in pokemon.types %}
                         <a href="#" class="pokemon-type">
@@ -82,7 +97,8 @@
                         </a>
                     {% endfor %}
                 </div>
-                <b>Found In:</b>
+                <br>
+                <h3><b>Habitats:</b></h3>
                 {% for habitat in habitat_list %}
                     <figure class="habitat-fig">
                         <img class="habitats" src="/static/images/habitats/{{ habitat }}.png" alt="{{ habitat }}">
@@ -91,13 +107,8 @@
                 {% endfor %}
             </div>
         </div>
-        <b>Stats:</b>
-        <div class="stats">
-            {% for stat in stats %}
-                <b>{{ stat }}: </b>
-                <span>{{ stats[stat] }}</span>
-            {% endfor %}
-        </div>
+        <h3><b>Stats:</b></h3>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
     </div>
 
     <br>
@@ -110,7 +121,7 @@
             {% for id in evolution_dict %}
                 <div id="evolution-col" class="col-md-auto">
                     <figure class="evolution-img-fig">
-                        <a href="{{ url_for('info', name=evolution_dict[id]) }}">
+                        <a href="{{ url_for('info', name=evolution_dict[id], transformation='normal') }}">
                             <img id="evolution-img" src="https://cdn.traction.one/pokedex/pokemon/{{ id }}.png" alt="Evolution Chain Image">
                         </a>
                         <figcaption id="evolution-name"><b>{{ evolution_dict[id] }}</b></figcaption>
@@ -156,6 +167,38 @@
     </div>
 
     <br>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <script type="text/javascript">
+        var xValues = ["HP", "Attack", "Defense", "Special-Attack", "Special-Defense", "Speed"];
+        var yValues = [{{ stats["hp"] }}, {{ stats["attack"] }}, {{ stats["defense"] }}, {{ stats["special-attack"] }}, {{ stats["special-defense"] }}, {{ stats["speed"] }}];
+        var barColors = ["red", "green","blue","orange","brown", "yellow"];
+
+        new Chart("myChart", {
+            type: "horizontalBar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
     
 </body>
 </html>
