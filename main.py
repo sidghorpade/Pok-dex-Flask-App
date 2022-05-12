@@ -21,7 +21,7 @@ app = Flask(__name__)
 bootstrap = Bootstrap5(app)
 
 # Homepage
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
 
