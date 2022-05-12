@@ -14,7 +14,8 @@ body{background: red;}
     padding: 10px;
     bottom: 100px;
     width: 10000px;
-    height: 1200px;
+    height: 600px;
+    outline: auto;
 }
 #carouselExampleControls{
     background-color: white;
@@ -26,4 +27,16 @@ body{background: red;}
     width: 400px;
     height: 500px;
     
+}
+#more-squares {
+    justify-content: center;
+    display: block;
+    background:white;
+    outline: auto;
+    border-radius: 20px;
+    box-shadow: 5px 5px black;
+    padding: 10px;
+    bottom: 1000px;
+    width: 10000px;
+    height: 600px;
 }
