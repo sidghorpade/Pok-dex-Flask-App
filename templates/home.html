@@ -41,14 +41,11 @@
                 <a class="nav-link" href="#">Habitats</a>
             </li>
         </ul>
-        
-          <input class="form-control me-2" type="search" placeholder="Search Pokemon"
-          aria-label="Search" name="searched">
-          <button class="btn btn-outline-secondary"  type="submit"> 
-            <a href="{{url_for('info', name=searched)}}">Search</a>
-
-          </button>
-     
+        <form method= "POST" action = "{{url_for('info',transformation = pick, name=pokemon)}}" class ="pokes">
+          <input class="form-control me-2" type="search" required placeholder="Search Pokemon"
+          aria-label="Search" name="Searched">
+          <button class="btn btn-outline-secondary" type="submit"> Search</button>
+        </form>
         
     </div>
 </nav>
