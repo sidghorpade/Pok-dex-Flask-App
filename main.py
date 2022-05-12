@@ -4,6 +4,7 @@
 from ensurepip import version
 from info import preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
 from transformations import transform_image
+from generations import gen_number_dict, preprocess_gen_pokemon
 import random
 import pokebase as pb
 import requests, json
@@ -23,6 +24,24 @@ bootstrap = Bootstrap5(app)
 @app.route('/')
 def home():
     return render_template('home.html')
+
+# Worked on by: Pedro
+# Generations route
+@app.route('/generations')
+@app.route('/generations/<id>')
+def generations(id=None):
+    generations = []
+
+    if id != None:
+        id = gen_number_dict[id]
+
+    gen_pokemon = {}
+    for gen in range(1, 9):
+        generations.append(pb.generation(gen))
+    
+    gen_pokemon = preprocess_gen_pokemon(generations)
+        
+    return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon)
 
 # Worked on by: Pedro
 # Pokemon info route
@@ -56,8 +75,6 @@ def info(transformation, name):
         habitats[habitat.name] = habitat.pokemon_species
     
     habitat_list = preprocess_habitats(habitats, pokemon.name)
-
-    print(habitat_list)
     
     return render_template('info.html', pokemon=pokemon, img_tag=img_tag, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list)
   

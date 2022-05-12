@@ -1,9 +1,9 @@
 # Title: info.py
+# Worked on by: Pedro
 # Description: Holds functions and/or data used by the info route in main.py
 
 from main import *
 
-# Worked on by: Pedro
 # Returns preprocessed dictionary of a pokemon's evolution chain
 # Key: Pokemon ID
 # Value: Name
@@ -25,7 +25,6 @@ def preprocess_evolution(evolution_json):
 
     return evolution_dict
 
-# Worked on by: Pedro
 # Returns preprocessed dictionary of the generations and games that a pokemon appears in
 # Key: Gen Numbers
 # Values: Pokemon Sprite
@@ -92,6 +91,9 @@ def preprocess_versions(generations, id):
     
     return gen_dict
 
+# Returns preprocessed dictionary of a Pokemon's stats
+# Key: Stat Name
+# Value: Stat Value
 def preprocess_stats(stats):
     stats_dict = {}
 
@@ -103,6 +105,7 @@ def preprocess_stats(stats):
     print(stats_dict)
     return stats_dict
 
+# Returns prepocessed list of habitats a Pokemon is found in
 def preprocess_habitats(habitats, name):
     habitat_list = []
 
