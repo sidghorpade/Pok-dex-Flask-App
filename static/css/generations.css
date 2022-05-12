@@ -1,6 +1,6 @@
 body {
     background: linear-gradient(red, orange);
-    background-attachment: false;
+    background-attachment: fixed;
 }
 
 .navbar-brand {
@@ -30,6 +30,24 @@ body {
 
 .gen-number {
     text-transform: uppercase;
+}
+
+.info-container {
+    background: linear-gradient(silver, white);
+    border-radius: 20px;
+    box-shadow: 5px 5px black;
+    padding: 10px;
+}
+
+.region-img-fig {
+    padding: 10px;
+}
+
+.region-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
 }
 
 .modal-title {
@@ -63,4 +81,14 @@ body {
 
 .pokemon-id-container {
     text-align: center;
+}
+
+.box-art-fig {
+    display: inline-block;
+}
+
+.box-art {
+    width: 100px;
+    height: 100%;
+    margin-right: 10px;
 }

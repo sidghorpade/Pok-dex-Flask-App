@@ -2,7 +2,7 @@
 # Description: Holds Flask application code and all routes to web pages
 
 from ensurepip import version
-from info import preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
+from info import preprocess_bio, preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
 from transformations import transform_image
 from generations import gen_number_dict, preprocess_gen_pokemon
 import random
@@ -40,15 +40,26 @@ def generations(id=None):
         generations.append(pb.generation(gen))
     
     gen_pokemon = preprocess_gen_pokemon(generations)
+
+    games = {
+        'i': ['red', 'blue', 'yellow'],
+        'ii': ['gold', 'silver', 'crystal'],
+        'iii': ['ruby', 'sapphire', 'emerald', 'firered', 'leafgreen'],
+        'iv': ['diamond', 'pearl', 'platinum', 'heartgold', 'soulsilver'],
+        'v': ['black', 'white', 'black2', 'white2'],
+        'vi': ['x', 'y', 'omegaruby', 'alphasapphire'],
+        'vii': ['sun', 'moon', 'ultrasun', 'ultramoon'],
+        'viii': ['sword', 'shield', 'brilliantdiamond', 'shiningpearl']
+    }
         
-    return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon)
+    return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon, games=games)
 
 # Worked on by: Pedro
 # Pokemon info route
 @app.route('/info/<transformation>/<name>')
 def info(transformation, name):
     pokemon = pb.pokemon(name)
-    bio = pokemon.species.flavor_text_entries[0].__dict__['flavor_text']
+    bio = preprocess_bio(pokemon.species.flavor_text_entries)
     img_url = "https://cdn.traction.one/pokedex/pokemon/" + str(pokemon.id) + ".png"
 
     response = requests.get(img_url)

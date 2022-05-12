@@ -4,6 +4,12 @@
 
 from main import *
 
+def preprocess_bio(flavor_text_entries):
+    print(flavor_text_entries)
+    for flavor_text in flavor_text_entries:
+        if flavor_text.language.name == "en":
+            return flavor_text.flavor_text
+
 # Returns preprocessed dictionary of a pokemon's evolution chain
 # Key: Pokemon ID
 # Value: Name

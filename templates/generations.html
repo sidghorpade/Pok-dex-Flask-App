@@ -27,14 +27,23 @@
 
     {% for generation in generations %}
         <h2 class="heading"><b>Gen <span class="gen-number">{{ generation.name.split('-')[-1] }}</span></b></h2>
-        <div id="info-container" class="container">
+
+        <div class="info-container" class="container">
             <h2>{{ generation.main_region.name }}</h2>
             <div class="row justify-content-md-center">
                 <div class="col-md-auto">
                     <figure class="region-img-fig">
-                        <img class="region-img" alt="{{ generation.main_region.name }}">
-
+                        <img class="region-img" src="/static/images/regions/{{ generation.main_region.name }}.png" alt="{{ generation.main_region.name }}">
                     </figure>
+                </div>
+                <div class="col">
+                    {% for game in games[generation.name.split('-')[-1]] %}
+                        <figure class="box-art-fig">
+                            <img class="box-art" src="/static/images/box_art/{{ generation.name.split('-')[-1] }}-{{ game }}.png" alt="{{ game }}">
+                            <figcaption>{{ game.capitalize() }}</figcaption>
+                        </figure>
+                    {% endfor %}
+
                 </div>
             </div>
         </div>
