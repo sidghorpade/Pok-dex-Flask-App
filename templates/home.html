@@ -41,13 +41,12 @@
                 <a class="nav-link" href="#">Habitats</a>
             </li>
         </ul>
-        <form method= "GET"  action="{{ url_for('info', transformation='normal', name= pokemon) }}" class ="form-inline">
-            {{ form.csrf_token }}
-            {{ form.pokemon_name.label }}
-          <input class="form-control me-2" type="search" required placeholder="Search Pokemon"
+
+          <input id="search" class="form-control me-2" type="search" required placeholder="Search Pokemon"
           aria-label="Search" name="name">
-          <button class="btn btn-outline-secondary" type="submit"> Search</button>
-        </form>
+          <a href="" onclick="this.href='/info/normal/'+document.getElementById('search').value">
+            <button class="btn btn-outline-secondary"> Search</button>
+          </a>
         
     </div>
 </nav>
@@ -130,6 +129,10 @@
       </button>
     </div>
 </div>
+
+<script>
+  
+</script>
 
 </body>
 </html>
