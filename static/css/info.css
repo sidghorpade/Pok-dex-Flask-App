@@ -161,3 +161,6 @@ table {
     margin-right: 10px;
     object-fit: cover;
 }
+#search{
+    width: 200px;
+}
