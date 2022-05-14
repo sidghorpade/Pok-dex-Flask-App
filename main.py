@@ -73,7 +73,7 @@ def generations(id=None):
 
 # Worked on by: Pedro
 # Pokemon info route
-@app.route('/info/<transformation>/<name>', methods=('GET','POST'))
+@app.route('/info/<transformation>/<name>')
 def info(transformation, name):
     pokemon = pb.pokemon(name)
     bio = preprocess_bio(pokemon.species.flavor_text_entries)
