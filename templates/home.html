@@ -60,19 +60,27 @@
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="static/images/pika.png" class="d-block w-100" alt="...">
+        <a href="{{ url_for('info', transformation='normal', name='pikachu') }}">
+          <img src="static/images/pika.png" class="d-block w-100" alt="...">
+        </a>
         <p> Happy 25th anniversary!</p>
       </div>
       <div class="carousel-item">
-        <img src="static/images/grassType.png" class="d-block w-100" alt="...">
+        <a href="{{ url_for('info', transformation='normal', name='bulbasaur') }}">
+          <img src="static/images/grassType.png" class="d-block w-100" alt="...">
+        </a>
         <p> Bulbasaur!</p>
       </div>
       <div class="carousel-item">
-        <img src="static/images/char.png" class="d-block w-100" alt="...">
+        <a href="{{ url_for('info', transformation='normal', name='charmander') }}">
+          <img src="static/images/char.png" class="d-block w-100" alt="...">
+        </a>
         <p> Charmander!</p>
       </div>
       <div class="carousel-item">
-        <img src="static/images/waterType.png" class="d-block w-100" alt="...">
+        <a href="{{ url_for('info', transformation='normal', name='squirtle') }}">
+          <img src="static/images/waterType.png" class="d-block w-100" alt="...">
+        </a>
         <p> Squirtle!</p>
       </div>
     </div>
