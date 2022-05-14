@@ -28,7 +28,7 @@
     {% for generation in generations %}
         <h2 class="heading"><b>Gen <span class="gen-number">{{ generation.name.split('-')[-1] }}</span></b></h2>
 
-        <div class="info-container" class="container">
+        <div id="info-container" class="container">
             <h2>{{ generation.main_region.name }}</h2>
             <div class="row justify-content-md-center">
                 <div class="col-md-auto">
@@ -36,19 +36,36 @@
                         <img class="region-img" src="/static/images/regions/{{ generation.main_region.name }}.png" alt="{{ generation.main_region.name }}">
                     </figure>
                 </div>
-                <div class="col">
+                <div class="col-md-auto">
                     {% for game in games[generation.name.split('-')[-1]] %}
                         <figure class="box-art-fig">
                             <img class="box-art" src="/static/images/box_art/{{ generation.name.split('-')[-1] }}-{{ game }}.png" alt="{{ game }}">
-                            <figcaption>{{ game.capitalize() }}</figcaption>
+                            {% if game == 'black2' %}
+                                <figcaption>Black 2</figcaption>
+                            {% elif game == 'white2' %}
+                                <figcaption>White 2</figcaption>
+                            {% elif game == 'omegaruby' %}
+                                <figcaption>Omega Ruby</figcaption>
+                            {% elif game == 'alphasapphire' %}
+                                <figcaption>Alpha Sapphire</figcaption>
+                            {% elif game == 'brilliantdiamond' %}
+                                <figcaption>Brilliant Diamond</figcaption>
+                            {% elif game == 'shiningpearl' %}
+                                <figcaption>Shining Pearl</figcaption>
+                            {% else %}
+                                <figcaption>{{ game.capitalize() }}</figcaption>
+                            {% endif %}
                         </figure>
                     {% endfor %}
 
+                    <br>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gen{{ generation.id }}">Show Pokemon</button>
                 </div>
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gen{{ generation.id }}">Show Pokemon</button>
+        <br>
 
         <div id="gen{{ generation.id }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -76,6 +93,8 @@
             </div>
         </div> 
     {% endfor %}
+
+    <br>
 
     {% if id != None %}
         <script>

@@ -32,7 +32,7 @@ body {
     text-transform: uppercase;
 }
 
-.info-container {
+#info-container {
     background: linear-gradient(silver, white);
     border-radius: 20px;
     box-shadow: 5px 5px black;

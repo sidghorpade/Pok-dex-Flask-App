@@ -86,8 +86,11 @@ def info(transformation, name):
         habitats[habitat.name] = habitat.pokemon_species
     
     habitat_list = preprocess_habitats(habitats, pokemon.name)
+    no_habitats = len(habitat_list) == 0
+
+    print(len(habitat_list))
     
-    return render_template('info.html', pokemon=pokemon, img_tag=img_tag, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list)
+    return render_template('info.html', pokemon=pokemon, img_tag=img_tag, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list, no_habitats=no_habitats)
   
 # Lists Pokemon types
 @app.route('/types')
