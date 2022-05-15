@@ -3,42 +3,21 @@ body {
     background-attachment: fixed;
 }
 
-#types-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#types-title {
-    text-align: center;
-    color: yellow;
-    text-shadow: 4px 4px black;
-    font-family: sans-serif;
-    font-size: 75px;
-    padding-left: 10px;
-}
-
 img {
     height: 100%;
     width: 100%;
     object-fit: contain;
-   }
-
-.types-picture{
+    height: 300px;
+    width: 300;
     background-color: white;
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 400px;
-    height: 400px;
     border-radius: 10%;
+    margin-bottom: 10%;
     filter: drop-shadow(10px 10px 10px #222);
-    
 }
 
-.types-row{
+.test{
     justify-content: center;
     display: flex;
-    
 }
 
 figcaption{
@@ -50,11 +29,19 @@ figcaption{
     font-family: sans-serif;
     font-size: 45px;
     padding-left: 10px;
-    padding-top:10px ;
+    padding-bottom: 50px;
+    
+}
+
+#types-title {
+    text-align: center;
+    color: yellow;
+    text-shadow: 4px 4px black;
+    font-family: sans-serif;
+    font-size: 100px;
+    padding-left: 10px;
+    margin-bottom: 50px;
 }
 
 
-figure{
-    padding-right: 100px;
-    padding-left: 100px;
-}
+

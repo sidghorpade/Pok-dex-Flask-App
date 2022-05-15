@@ -17,6 +17,7 @@ from flask_bootstrap import Bootstrap5
 from pprint import pprint
 from PIL import Image
 from io import BytesIO
+from poke_info import *
 
 # creating flask appliation
 app = Flask(__name__)
@@ -119,5 +120,20 @@ def types():
 # Pokemon Type Pages
 @app.route('/types/<type>')
 def selectedType(type):
-    pokeType = pb.type_(type)
-    return render_template('selectedType.html')
+    poke_list = []
+
+    i = 0
+    while i < len(poke_info):
+        temp_dict = {}
+
+        for key in poke_info[i]:
+            if poke_info[i]['type'] == type:
+                temp_dict.update({key:poke_info[i][key]})
+
+        if len(temp_dict) > 0:
+            poke_list.append(temp_dict)
+
+        i +=1
+    
+    limit = len(poke_list)
+    return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)

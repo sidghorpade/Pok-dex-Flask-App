@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/css/types.css" rel="stylesheet">
-    <title>Type List</title>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"/>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"/>
+   <link href="static/css/types.css" rel="stylesheet">
+   <title>Type List</title>
 </head>
 
 <body>
+
+    {% include "partials/navbar.html" %}
+    <br>
+
 <header id = "types-header">
     <h1 id="types-title">Types</h1>
 </header>
@@ -19,80 +32,80 @@
         <figcaption>Grass</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/dragonType.jpg">
+        <a href = "{{url_for('selectedType', type='dragon')}}"><img class="types-picture" src="static/images/dragonType.jpg"></a>
         <figcaption>Dragon</figcaption>
     </figure>
 </div>
 
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/electricType.jpg">
+        <a href = "{{url_for('selectedType', type='electric')}}"><img class = "types-picture" src="static/images/electricType.jpg"></a>
         <figcaption>Electric</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/fightingType.png">
+        <a href = "{{url_for('selectedType', type='fighting')}}"><img class="types-picture" src="static/images/fightingType.png"></a>
         <figcaption>Fighting</figcaption>
     </figure>
 </div>
 
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/fireType.png">
+        <a href = "{{url_for('selectedType', type='fire')}}"><img class = "types-picture" src="static/images/fireType.png"></a>
         <figcaption>Fire</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/flyingType.png">
+        <a href = "{{url_for('selectedType', type='flying')}}"><img class="types-picture" src="static/images/flyingType.png"></a>
         <figcaption>Flying</figcaption>
     </figure>
 </div>
 
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/ghostType.png">
+        <a href = "{{url_for('selectedType', type='ghost')}}"><img class = "types-picture" src="static/images/ghostType.png"></a>
         <figcaption>Ghost</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/grassType.png">
+        <a href = "{{url_for('selectedType', type='grass')}}"><img class="types-picture" src="static/images/grassType.png"></a>
         <figcaption>Grass</figcaption>
     </figure>
 </div>
 
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/groundType.png">
+        <a href = "{{url_for('selectedType', type='ground')}}"><img class = "types-picture" src="static/images/groundType.png"></a>
         <figcaption>Ground</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/iceType.jpg">
+        <a href = "{{url_for('selectedType', type='ice')}}"><img class="types-picture" src="static/images/iceType.jpg"></a>
         <figcaption>Ice</figcaption>
     </figure>
 </div>
     
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/normalType.png">
+        <a href = "{{url_for('selectedType', type='normal')}}"><img class = "types-picture" src="static/images/normalType.png"></a>
         <figcaption>Normal</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/poisonType.png">
+        <a href = "{{url_for('selectedType', type='poison')}}"><img class="types-picture" src="static/images/poisonType.png"></a>
         <figcaption>Poison</figcaption>
     </figure>
 </div>
 
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/psychicType.png">
+        <a href = "{{url_for('selectedType', type='psychic')}}"><img class = "types-picture" src="static/images/psychicType.png"></a>
         <figcaption>Psychic</figcaption>
     </figure>
     <figure>
-        <img class="types-picture" src="static/images/rockType.png">
+        <a href = "{{url_for('selectedType', type='rock')}}"><img class="types-picture" src="static/images/rockType.png"></a>
         <figcaption>Rock</figcaption>
     </figure>
 </div>
 
 <div class="types-row">
     <figure>
-        <img class = "types-picture" src="static/images/waterType.png">
+        <a href = "{{url_for('selectedType', type='water')}}"><img class = "types-picture" src="static/images/waterType.png"></a>
         <figcaption>Water</figcaption>
     </figure>
 </div>
