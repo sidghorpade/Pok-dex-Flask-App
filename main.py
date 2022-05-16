@@ -1,6 +1,10 @@
 # Title: main.py
 # Description: Holds Flask application code and all routes to web pages
 
+<<<<<<< HEAD
+=======
+import os
+>>>>>>> 2521dc0 (Initial Commit)
 from ensurepip import version
 from info import preprocess_bio, preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
 from transformations import transform_image
@@ -12,16 +16,31 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
+<<<<<<< HEAD
 from flask import Flask, render_template
+=======
+from flask import Flask, render_template, request, redirect,url_for, abort, send_from_directory
+from werkzeug.utils import secure_filename
+>>>>>>> 2521dc0 (Initial Commit)
 from flask_bootstrap import Bootstrap5
 from pprint import pprint
 from PIL import Image
 from io import BytesIO
+<<<<<<< HEAD
 from poke_info import *
+=======
+import imghdr
+>>>>>>> 2521dc0 (Initial Commit)
 
 # creating flask appliation
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'pokemain'
+<<<<<<< HEAD
+=======
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
+app.config['UPLOAD_PATH'] = 'uploads'
+>>>>>>> 2521dc0 (Initial Commit)
 # passing app to bootstrap
 bootstrap = Bootstrap5(app)
 
@@ -116,6 +135,7 @@ def info(transformation, name):
 def types():
     return render_template('types.html')
 
+<<<<<<< HEAD
 
 # Pokemon Type Pages
 @app.route('/types/<type>')
@@ -137,3 +157,37 @@ def selectedType(type):
     
     limit = len(poke_list)
     return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)
+=======
+def validate_image(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return '.' + (format if format != 'jpeg' else 'jpg')
+
+@app.errorhandler(413)
+def too_large(e):
+    return "File is too large", 413
+
+@app.route('/searchByImage')
+def index():
+    files = os.listdir(app.config['UPLOAD_PATH'])
+    return render_template('searchByImage.html', files=files)
+
+@app.route('/searchByImage', methods=['POST'])
+def upload_files():
+    uploaded_file = request.files['file']
+    filename = secure_filename(uploaded_file.filename)
+    if filename != '':
+        file_ext = os.path.splitext(filename)[1]
+        if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
+                file_ext != validate_image(uploaded_file.stream):
+            return "Invalid image", 400
+        uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+    return '', 204
+
+@app.route('/uploads/<filename>')
+def upload(filename):
+    return send_from_directory(app.config['UPLOAD_PATH'], filename)
+>>>>>>> 2521dc0 (Initial Commit)
