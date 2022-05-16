@@ -114,3 +114,8 @@ def info(transformation, name):
 @app.route('/types')
 def types():
     return render_template('types.html')
+#Lists Pokemon Habitats
+@app.route('/habitats')
+def habitats():
+    return render_template('habitats.html')
+
