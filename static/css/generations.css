@@ -23,6 +23,19 @@ body {
     padding-left: 10px;
 }
 
+<<<<<<< HEAD
+=======
+.message {
+    text-align: center;
+    color: black;
+    text-shadow: 2px 2px grey;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 25px;
+    padding-left: 10px;
+}
+
+>>>>>>> 2521dc0 (Initial Commit)
 #gameboy-img {
     width: 1in;
     height: 1in;
