@@ -29,7 +29,7 @@
     <figure>
         {%for pokemon in poke_list%}
    
-            <a href=""><img src="https://cdn.traction.one/pokedex/pokemon/{{pokemon.id}}.png" alt=""></a>
+            <a href="{{ url_for('info', transformation='normal', name=pokemon.name) }}"><img src="https://cdn.traction.one/pokedex/pokemon/{{pokemon.id}}.png" alt=""></a>
             <figcaption>{{pokemon.name.capitalize()}}</figcaption>
     
         {% endfor %}
