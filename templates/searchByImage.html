@@ -41,12 +41,18 @@
           <br>
 
           {% for file in files %}
-          <img  id="upload" src="{{ url_for('upload', filename=file) }}" style="width: 64px">
+          <img  id="{{ file }}" src="{{ url_for('upload', filename=file) }}" style="width: 64px">
           {% endfor %}
 
 
 
     <hr>
+
+    <img id="image-upload" crossorigin="anonymous" style="width:100px">
+
+    <form>
+        <input id="file-upload" type="file" accept="image/*">
+    </form>
 
     <!-- [START deps]  -->
     <script src="https://unpkg.com/@tensorflow/tfjs"></script>
@@ -56,10 +62,11 @@
     <script>
         async function run() {
           // [START load_and_run_model]
-          const model = await tf.automl.loadImageClassification('model/model.json');
-          const image = document.getElementById('upload');
+          const model = await tf.automl.loadImageClassification('static/model/model.json');
+          const image = document.getElementById('image-upload');
           const predictions = await model.classify(image);
           // [END load_and_run_model]
+          console.log("predictions")
           console.log(predictions);
           // Show the resulting object on the page.
           const pre = document.createElement('pre');
@@ -67,6 +74,13 @@
           document.body.append(pre);
         }
         run();
+
+        document.getElementById("file-upload").onchange = function(event) {
+            const img = document.getElementById('image-upload');
+            img.src = URL.createObjectURL(event.target.files[0])
+            img.alt = 'image';
+            run();
+        }
     </script>
 
 </body>
