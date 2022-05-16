@@ -115,11 +115,6 @@ def info(transformation, name):
 @app.route('/types')
 def types():
     return render_template('types.html')
-#Lists Pokemon Habitats
-@app.route('/habitats')
-def habitats():
-    return render_template('habitats.html')
-
 
 
 # Pokemon Type Pages
@@ -142,4 +137,3 @@ def selectedType(type):
     
     limit = len(poke_list)
     return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)
-
