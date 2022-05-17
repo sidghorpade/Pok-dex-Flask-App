@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search By Image</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
+
+    <link href="{{ url_for('static', filename='css/imageSearch.css') }}" rel="stylesheet">
+    {{ bootstrap.load_css() }}
+</head>
+
+
+<body>
+
+    {% include "partials/navbar.html" %}
+
+    <br>
+
+    <header id="search-header">
+        <img id="camera-img" src="https://cdn-icons.flaticon.com/png/512/2668/premium/2668896.png?token=exp=1652655937~hmac=c1f164563257f43a9dd8a95ada7c8b8d" alt="camera">
+        <h1 class="heading"><b>Search By Image</b></h1>
+    </header>
+
+    <hr>
+
+    <br>
+        <div id="info-container" class="container">
+          <br>
+          <h2 class="message"><b>Welcome to the Search by Image Feature of the Pokédex! <br/> This feature allows you to detect any of the 151 First Generation Pokémon.<br/> To get started, upload an image - </b></h2>
+          <br>
+
+          <form action="{{ url_for('upload_files') }}" class="dropzone">
+          </form>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+
+
+
+          <br>
+
+          {% for file in files %}
+          <img  id="{{ file }}" src="{{ url_for('upload', filename=file) }}" style="width: 64px">
+          {% endfor %}
+
+
+
+    <hr>
+
+    <img id="image-upload" crossorigin="anonymous" style="width:100px">
+
+    <form>
+        <input id="file-upload" type="file" accept="image/*">
+    </form>
+
+    <!-- [START deps]  -->
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/@tensorflow/tfjs-automl"></script>
+    <!-- [END deps]  -->
+
+    <script>
+        async function run() {
+          // [START load_and_run_model]
+          const model = await tf.automl.loadImageClassification('static/model/model.json');
+          const image = document.getElementById('image-upload');
+          const predictions = await model.classify(image);
+          // [END load_and_run_model]
+          console.log("predictions")
+          console.log(predictions);
+          // Show the resulting object on the page.
+          const pre = document.createElement('pre');
+          pre.textContent = JSON.stringify(predictions, null, 2);
+          document.body.append(pre);
+        }
+        run();
+
+        document.getElementById("file-upload").onchange = function(event) {
+            const img = document.getElementById('image-upload');
+            img.src = URL.createObjectURL(event.target.files[0])
+            img.alt = 'image';
+            run();
+        }
+    </script>
+
+</body>
+</html>
