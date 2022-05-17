@@ -137,3 +137,7 @@ def selectedType(type):
     
     limit = len(poke_list)
     return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)
+
+@app.route('/habitats')
+def habitats():
+    return render_template('habitats.html')
