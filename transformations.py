@@ -1,3 +1,12 @@
+# transformations.py
+# Worked on by: Pedro
+# Description: Holds image transformation code for the info page
+#
+# Transformations:
+#       Grayscale
+#       Negative
+#       Sepia
+
 import base64
 from io import BytesIO
 

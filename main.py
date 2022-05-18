@@ -1,11 +1,27 @@
-# Title: main.py
+# 
+# Project Header
+# 
+# Title: Pokedex
+# Class: CST 205
+# Date: 05/17/2022
+# Authors: Pedro Gutierrez
+#          Siddhi Ghoparde
+#          Jared Lopez-Leon
+#          Justin Garcia
+# Abstract: Pokedex Web application serving as a wiki for information about things from the Pokemon universe.
+#           Search By Image feature made using an image classification model to predict a Pokemon based on an image.
+#           
+# Github Link: https://github.com/sidghorpade/Pokedex-Flask-App
+
+# main.py
 # Description: Holds Flask application code and all routes to web pages
 
 import os
 from ensurepip import version
 from info import preprocess_bio, preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
 from transformations import transform_image
-from generations import gen_number_dict, preprocess_gen_pokemon
+from generations import gen_number_dict, game_dict, preprocess_gen_pokemon
+from habitats import habitats_dict
 import random
 import pokebase as pb
 import requests, json
@@ -65,18 +81,24 @@ def generations(id=None):
     
     gen_pokemon = preprocess_gen_pokemon(generations)
 
-    games = {
-        'i': ['red', 'blue', 'yellow'],
-        'ii': ['gold', 'silver', 'crystal'],
-        'iii': ['ruby', 'sapphire', 'emerald', 'firered', 'leafgreen'],
-        'iv': ['diamond', 'pearl', 'platinum', 'heartgold', 'soulsilver'],
-        'v': ['black', 'white', 'black2', 'white2'],
-        'vi': ['x', 'y', 'omegaruby', 'alphasapphire'],
-        'vii': ['sun', 'moon', 'ultrasun', 'ultramoon'],
-        'viii': ['sword', 'shield', 'brilliantdiamond', 'shiningpearl']
-    }
+    # Key in this dictionary is the id passed into the route
+    games = game_dict
         
     return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon, games=games)
+
+# Worked on by: Pedro
+# Habitats route
+@app.route('/habitats')
+@app.route('/habitats/<hab>')
+def habitats(hab=None):
+    # Get habitat to open on page load if passed into route
+    if hab != None:
+        hab = pb.pokemon_habitat(hab).name
+
+    # Get a preprocessed habitats dictionary from habitats.py
+    habitats = habitats_dict()
+
+    return render_template('habitats.html', habitats=habitats, hab=hab)
 
 # Worked on by: Pedro
 # Pokemon info route
@@ -112,11 +134,10 @@ def info(transformation, name):
     
     habitat_list = preprocess_habitats(habitats, pokemon.name)
     no_habitats = len(habitat_list) == 0
-
-    print(len(habitat_list))
     
     return render_template('info.html', pokemon=pokemon, img_tag=img_tag, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list, no_habitats=no_habitats)
   
+# Worked on by: Justin and Jared
 # Lists Pokemon types
 @app.route('/types')
 def types():
@@ -144,10 +165,8 @@ def selectedType(type):
     limit = len(poke_list)
     return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)
 
-
-@app.route('/habitats')
-def habitats():
-    return render_template('habitats.html')
+# Worked on by: Siddhi
+# Validates an image upload
 def validate_image(stream):
     header = stream.read(512)
     stream.seek(0)
@@ -156,10 +175,32 @@ def validate_image(stream):
         return None
     return '.' + (format if format != 'jpeg' else 'jpg')
 
+# Worked on by: Siddhi
+@app.errorhandler(413)
+def too_large(e):
+    return "File is too large", 413
 
+# Worked on by: Siddhi
 # Search by image route
 @app.route('/searchByImage')
 def index():
     files = os.listdir(app.config['UPLOAD_PATH'])
     return render_template('searchByImage.html', files=files)
 
+# Worked on by: Siddhi
+@app.route('/searchByImage', methods=['POST'])
+def upload_files():
+    uploaded_file = request.files['file']
+    filename = secure_filename(uploaded_file.filename)
+    if filename != '':
+        file_ext = os.path.splitext(filename)[1]
+        if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
+                file_ext != validate_image(uploaded_file.stream):
+            return "Invalid image", 400
+        uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+    return '', 204
+
+# Worked on by: Siddhi
+@app.route('/uploads/<filename>')
+def upload(filename):
+    return send_from_directory(app.config['UPLOAD_PATH'], filename)

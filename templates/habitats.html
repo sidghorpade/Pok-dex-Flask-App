@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="{{ url_for('static', filename='css/generations.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/habitats.css') }}" rel="stylesheet">
     {{ bootstrap.load_css() }}
 </head>
 <body>
@@ -18,37 +18,40 @@
 
     <br>
 
-    <header id="generations-header">
-        <img id="gameboy-img" src="static/images/pokemap.png" alt="map">
+    <header class="habitats-header">
+        <img class="habitat-header-img" src="https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1440,f_auto/AW_life_on_land_colour_ejls2p.jpg" alt="habitat">
         <h1 class="heading"><b>Habitats</b></h1>
     </header>
 
     <hr>
 
     {% for habitat in habitats %}
-        <h2 class="heading"><b>Gen <span class="gen-number">{{ habitat.name.split('-')[-1] }}</span></b></h2>
-
-        <div id="info-container" class="container">
-            <h2>{{ habitat.main_habitat.name }}</h2>
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto">
-                    <figure class="region-img-fig">
-                        <img class="region-img" src="/static/images/habitats/{{ habitat.main_habitat.name }}.png" alt="{{ habitat.main_habitat.name }}">
+        <h2 class="heading"><b>{{ habitat }}</b></h2>
+        <div id="habitat-container" class="container">
+            <div class="row align-items-start">
+                <div class="col">
+                    <figure class="habitat-img-fig">
+                        <img class="habitat-img" src="/static/images/habitats/{{ habitat }}.png">
                     </figure>
+                </div>
+                <div class="col">
+                    <h3><b>Description:</b></h3>
+                    <h4>{{ habitats[habitat]['description'] }}</h4>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ habitat }}">Show Pokemon</button>
                 </div>
             </div>
         </div>
 
         <br>
 
-        <div id="gen{{ habitat.id }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div id="{{ habitat }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div id="gen-pokemon-container" class="container">
-                        <h1 class="modal-title">Gen <span class="gen-number">{{ habitat.name.split('-')[-1] }}</span> Pokemon</h1>
+                    <div id="habitat-pokemon-container" class="container">
+                        <h1 class="modal-title">{{ habitat.capitalize() }} Pokemon</h1>
                         <hr>
                         <div class="row justify-content-md-center">
-                            {% for pokemon in gen_pokemon[habitat.name.split('-')[-1]] %}
+                            {% for pokemon in habitats[habitat]['pokemon'] %}
                                 <div id="pokemon-col" class="col-md-auto">
                                     <figure class="pokemon-img-fig">
                                         <a href="{{ url_for('info', transformation='normal', name=pokemon.name) }}">
@@ -70,13 +73,12 @@
 
     <br>
 
-    {% if id != None %}
+    {% if hab != None %}
         <script>
-            $(document).ready(function(){
-                $("#gen{{ id }}").modal('show');
-            });
+            $(document).ready(function() {
+                $("#{{ hab }}").modal("show");
+            })
         </script>
     {% endif %}
-    
 </body>
 </html>

@@ -1,4 +1,4 @@
-# Title: info.py
+# info.py
 # Worked on by: Pedro
 # Description: Holds functions and/or data used by the info route in main.py
 
