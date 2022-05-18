@@ -41,6 +41,7 @@ def base():
     form = Pokemon()
     return dict(form=form)
 
+# Worked on by: Jared
 # Homepage
 @app.route('/', methods=('GET', 'POST'))
 def home():
@@ -123,6 +124,7 @@ def info(transformation, name):
 def types():
     return render_template('types.html')
 
+# Worked on by: Justin
 # Pokemon Type Pages
 @app.route('/types/<type>')
 def selectedType(type):
