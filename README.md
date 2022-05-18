@@ -11,4 +11,8 @@ Download repo using using command : git remote add origin https://github.com/sid
 Then run following commands:        $env:FLASK_APP = "main.py"
                                     $env:FLASK_DEBUG = "1"
                                     flask run
-Link:
+#Link:
+https://github.com/sidghorpade/Pokedex-Flask-App
+
+#Future Work: 
+We are thinking of making the search-by-image page look nicer and cleaning some smalls things through all the pages within the css files.
