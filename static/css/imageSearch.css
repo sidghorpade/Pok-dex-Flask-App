@@ -49,10 +49,6 @@ body {
     padding-right: 0.05in;
 }
 
-.gen-number {
-    text-transform: uppercase;
-}
-
 #info-container {
     align-items: center;
     text-align: center;
@@ -61,7 +57,6 @@ body {
     box-shadow: 5px 5px black;
     padding: 10px;
 }
-
 
 .form-group {
     background: linear-gradient(silver, white);
@@ -94,7 +89,5 @@ body {
     align-items: center;
 }
 
-.prediction-container {
-    align-items: center;
-  }
+
 
