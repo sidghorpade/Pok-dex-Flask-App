@@ -54,6 +54,8 @@ body {
 }
 
 #info-container {
+    align-items: center;
+    text-align: center;
     background-image: linear-gradient(silver, white);;
     border-radius: 20px;
     box-shadow: 5px 5px black;
@@ -70,6 +72,7 @@ body {
 }
 
 .btn-primary {
+    align-self: center;
     background: none repeat scroll 0 0 yellow;
     border-color: red maroon;
     border-radius: 10px 10px 10px 10px;
@@ -90,3 +93,8 @@ body {
     margin-left: auto;
     align-items: center;
 }
+
+.prediction-container {
+    align-items: center;
+  }
+
