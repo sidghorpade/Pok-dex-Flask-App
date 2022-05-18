@@ -41,8 +41,6 @@ import imghdr
 # creating flask appliation
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'pokemain'
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
-app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
 app.config['UPLOAD_PATH'] = 'uploads'
 
 # passing app to bootstrap
