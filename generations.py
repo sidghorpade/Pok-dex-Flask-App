@@ -1,9 +1,10 @@
-# Title: generations.py
+# generations.py
 # Worked on by: Pedro
 # Description: Holds functions and data used by the generations route in main.py
 
 from main import *
 
+# Returns preprocessed dictionary of every Pokemon by generation
 def preprocess_gen_pokemon(generations):
     gen_pokemon = {}
     for generation in generations:
@@ -20,6 +21,7 @@ def preprocess_gen_pokemon(generations):
 
     return gen_pokemon
 
+# Mapping generation roman numerals to regular numbers for route purposes
 gen_number_dict = {
     'i': 1,
     'ii': 2,
@@ -30,3 +32,14 @@ gen_number_dict = {
     'vii': 7,
     'viii': 8
 }
+
+game_dict = {
+        'i': ['red', 'blue', 'yellow'],
+        'ii': ['gold', 'silver', 'crystal'],
+        'iii': ['ruby', 'sapphire', 'emerald', 'firered', 'leafgreen'],
+        'iv': ['diamond', 'pearl', 'platinum', 'heartgold', 'soulsilver'],
+        'v': ['black', 'white', 'black2', 'white2'],
+        'vi': ['x', 'y', 'omegaruby', 'alphasapphire'],
+        'vii': ['sun', 'moon', 'ultrasun', 'ultramoon'],
+        'viii': ['sword', 'shield', 'brilliantdiamond', 'shiningpearl']
+    }

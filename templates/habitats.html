@@ -18,7 +18,67 @@
 
     <br>
 
-    
-    
+    <header class="habitats-header">
+        <img class="habitat-header-img" src="https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1440,f_auto/AW_life_on_land_colour_ejls2p.jpg" alt="habitat">
+        <h1 class="heading"><b>Habitats</b></h1>
+    </header>
+
+    <hr>
+
+    {% for habitat in habitats %}
+        <h2 class="heading"><b>{{ habitat }}</b></h2>
+        <div id="habitat-container" class="container">
+            <div class="row align-items-start">
+                <div class="col">
+                    <figure class="habitat-img-fig">
+                        <img class="habitat-img" src="/static/images/habitats/{{ habitat }}.png">
+                    </figure>
+                </div>
+                <div class="col">
+                    <h3><b>Description:</b></h3>
+                    <h4>{{ habitats[habitat]['description'] }}</h4>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ habitat }}">Show Pokemon</button>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="{{ habitat }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div id="habitat-pokemon-container" class="container">
+                        <h1 class="modal-title">{{ habitat.capitalize() }} Pokemon</h1>
+                        <hr>
+                        <div class="row justify-content-md-center">
+                            {% for pokemon in habitats[habitat]['pokemon'] %}
+                                <div id="pokemon-col" class="col-md-auto">
+                                    <figure class="pokemon-img-fig">
+                                        <a href="{{ url_for('info', transformation='normal', name=pokemon.name) }}">
+                                            <img id="pokemon-img" src="https://cdn.traction.one/pokedex/pokemon/{{ pokemon.id }}.png" alt="{{ pokemon.name }}">
+                                        </a>
+                                        <figcaption id="pokemon-name"><b>{{ pokemon.name }}</b></figcaption>
+                                    </figure>
+                                    <div class="pokemon-id-container">
+                                        <span class="pokemon-id">#{{ pokemon.id }}</span>
+                                    </div> 
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    {% endfor %}
+
+    <br>
+
+    {% if hab != None %}
+        <script>
+            $(document).ready(function() {
+                $("#{{ hab }}").modal("show");
+            })
+        </script>
+    {% endif %}
 </body>
 </html>
