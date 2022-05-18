@@ -41,6 +41,7 @@ def base():
     form = Pokemon()
     return dict(form=form)
 
+# Worked on by: Jared
 # Homepage
 @app.route('/', methods=('GET', 'POST'))
 def home():
@@ -123,6 +124,7 @@ def info(transformation, name):
 def types():
     return render_template('types.html')
 
+# Worked on by: Justin
 # Pokemon Type Pages
 @app.route('/types/<type>')
 def selectedType(type):
@@ -145,6 +147,19 @@ def selectedType(type):
     return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)
 
 # Search by image route
+@app.route('/habitats')
+def habitats():
+    return render_template('habitats.html')
+def validate_image(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return '.' + (format if format != 'jpeg' else 'jpg')
+
+
+
 @app.route('/searchByImage')
 def index():
     files = os.listdir(app.config['UPLOAD_PATH'])
