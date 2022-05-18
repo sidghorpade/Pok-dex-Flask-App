@@ -11,7 +11,8 @@ A web application modeled after a device in the Pokemon universe that catalogs a
 <br>Then run following commands:        $env:FLASK_APP = "main.py"</br>
 <br>                                   $env:FLASK_DEBUG = "1"</br>
 <br>                                   flask run</br>
-#Link:</br>
+
+#Link:
 <br>https://github.com/sidghorpade/Pokedex-Flask-App</br>
 
 #Future Work: 
