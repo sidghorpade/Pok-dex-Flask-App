@@ -41,6 +41,7 @@ def base():
     form = Pokemon()
     return dict(form=form)
 
+# Worked on by: Jared
 # Homepage
 @app.route('/', methods=('GET', 'POST'))
 def home():
@@ -66,6 +67,7 @@ def generations(id=None):
     
     gen_pokemon = preprocess_gen_pokemon(generations)
 
+    # Key in this dictionary is the id passed into the route
     games = {
         'i': ['red', 'blue', 'yellow'],
         'ii': ['gold', 'silver', 'crystal'],
@@ -78,6 +80,11 @@ def generations(id=None):
     }
         
     return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon, games=games)
+
+@app.route('/habitats')
+@app.route('/habitats/<habitat>')
+def habitats(habitat=None):
+    return render_template('habitats.html')
 
 # Worked on by: Pedro
 # Pokemon info route
@@ -118,11 +125,13 @@ def info(transformation, name):
     
     return render_template('info.html', pokemon=pokemon, img_tag=img_tag, bio=bio, stats=stats, evolution_dict=evolution_dict, gen_dict=gen_dict, habitat_list=habitat_list, no_habitats=no_habitats)
   
+# Worked on by: Justin and Jared
 # Lists Pokemon types
 @app.route('/types')
 def types():
     return render_template('types.html')
 
+# Worked on by: Justin
 # Pokemon Type Pages
 @app.route('/types/<type>')
 def selectedType(type):
@@ -144,6 +153,7 @@ def selectedType(type):
     limit = len(poke_list)
     return render_template('selectedType.html', poke_list = poke_list, type = type, limit = limit)
 
+# Worked on by: Siddhi
 def validate_image(stream):
     header = stream.read(512)
     stream.seek(0)
@@ -152,15 +162,18 @@ def validate_image(stream):
         return None
     return '.' + (format if format != 'jpeg' else 'jpg')
 
+# Worked on by: Siddhi
 @app.errorhandler(413)
 def too_large(e):
     return "File is too large", 413
 
+# Worked on by: Siddhi
 @app.route('/searchByImage')
 def index():
     files = os.listdir(app.config['UPLOAD_PATH'])
     return render_template('searchByImage.html', files=files)
 
+# Worked on by: Siddhi
 @app.route('/searchByImage', methods=['POST'])
 def upload_files():
     uploaded_file = request.files['file']
@@ -173,6 +186,7 @@ def upload_files():
         uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
     return '', 204
 
+# Worked on by: Siddhi
 @app.route('/uploads/<filename>')
 def upload(filename):
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
