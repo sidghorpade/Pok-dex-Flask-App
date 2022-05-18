@@ -20,7 +20,7 @@
     <br>
 
     <header id="search-header">
-        <img id="camera-img" src="https://cdn-icons.flaticon.com/png/512/2668/premium/2668896.png?token=exp=1652655937~hmac=c1f164563257f43a9dd8a95ada7c8b8d" alt="camera">
+        <img id="camera-img" src="static/images/camera.png" alt="camera">
         <h1 class="heading"><b>Search By Image</b></h1>
     </header>
 
@@ -32,18 +32,8 @@
           <h2 class="message"><b>Welcome to the Search by Image Feature of the Pokédex! <br/> This feature allows you to detect any of the 151 First Generation Pokémon.<br/> To get started, upload an image - </b></h2>
           <br>
 
-          <form action="{{ url_for('upload_files') }}" class="dropzone">
-          </form>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
-
-
-
-          <br>
-
-          {% for file in files %}
-          <img  id="{{ file }}" src="{{ url_for('upload', filename=file) }}" style="width: 64px">
-          {% endfor %}
-
+        
+          
 
 
     <hr>
@@ -53,6 +43,8 @@
     <form>
         <input id="file-upload" type="file" accept="image/*">
     </form>
+
+    <div id="Results"></div>
 
     <!-- [START deps]  -->
     <script src="https://unpkg.com/@tensorflow/tfjs"></script>
@@ -68,10 +60,14 @@
           // [END load_and_run_model]
           console.log("predictions")
           console.log(predictions);
+
+          document.getElementById("Results").innerText = JSON.stringify(predictions, null, 2);;
           // Show the resulting object on the page.
-          const pre = document.createElement('pre');
-          pre.textContent = JSON.stringify(predictions, null, 2);
-          document.body.append(pre);
+          //const pre = document.createElement('pre');
+          //pre.textContent = JSON.stringify(predictions, null, 2);
+
+           //document.body.append(pre);
+
         }
         run();
 
@@ -82,6 +78,8 @@
             run();
         }
     </script>
+
+    </div>
 
 </body>
 </html>
