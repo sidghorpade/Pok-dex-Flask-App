@@ -1,3 +1,4 @@
+<!-- Worked on by: Siddhi -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,6 @@
     <br>
 
     <div id="info-container" class="container">
-
         <br>
 
         <h2 class="message"><b>Welcome to the Search by Image Feature of the Pokédex! <br/> This feature allows you to detect any of the 151 First Generation Pokémon.<br/> To get started, upload an image - </b></h2>
@@ -32,18 +32,16 @@
         <hr>
         <br>
 
-        <form style=" width: 45vw; margin-left : 22vw;">
+        <figure>
+            <img id="image-upload" src="https://i0.wp.com/www.alphr.com/wp-content/uploads/2016/07/whos_that_pokemon.png?fit=1920%2C1080&ssl=1" crossorigin="anonymous">
+            <figcaption><h3 id="Result"></h3></figcaption>
+        </figure>
+        <form>
             <input id="file-upload" type="file" accept="image/*">
-            <img id="image-upload" crossorigin="anonymous" style="width:150px">
         </form>
-
-        <br>
-
-        <p id="Result"></p>
-
-        
-
-    </div>    
+    </div>   
+    
+    <br>
     
     <!-- load the TensorFlow.js library and the AutoML library -->
     <script src="https://unpkg.com/@tensorflow/tfjs"></script>
@@ -75,14 +73,14 @@
             };
         }
 
-
+        // Update img tag with selected image
         document.getElementById("file-upload").onchange = function(event) {
             const img = document.getElementById('image-upload');
             img.src = URL.createObjectURL(event.target.files[0])
             img.alt = 'image';
+            // Run the model
             run();
         }
-
     </script>
 </body>
 </html>

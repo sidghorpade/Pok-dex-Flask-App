@@ -89,5 +89,21 @@ body {
     align-items: center;
 }
 
+#image-upload {
+    width: 500px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 5px 5px black;
+}
+
+figcaption {
+    margin-top: 10px;
+}
+
+#file-upload {
+    margin: auto;
+    display: block;
+}
+
 
 
