@@ -1,7 +1,7 @@
-# PokeDex Flask App
+# PokeDex Flask App (Team 7331)
 
 ## About :
-Group: Pedro Gutierrez, Siddhi Ghorpade, Justin Garcia, Jared Lopez<br>
+Group Members: Pedro Gutierrez, Siddhi Ghorpade, Justin Garcia, Jared Lopez<br>
 Class: CST205<br>
 Date: 5/17/2022
 
