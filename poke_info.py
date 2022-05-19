@@ -1,3 +1,7 @@
+# poke_info.py
+# Worked on by: Justin
+# Contains data needed for /types route
+
 poke_info = [
     {
         "type" : "grass",

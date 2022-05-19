@@ -1,4 +1,5 @@
 # habitats.py
+# Worked on by: Pedro
 # Description: Holds functions and data used by the habitats route in main.py
 
 # Returns preprocessed dictionary of habitats
@@ -8,11 +9,16 @@
 
 import pokebase as pb
 
+# Returns preprocessed dictionary of all the habitats from the API
+# Key: Habitat Name
+# Value: Dictionary of habitat metadata (Pokemon & Habitat description)
 def habitats_dict():
     habitats = {}
 
+    # Loop 9 times for all 9 habitats
     for i in range (1, 10):
         habitat = pb.pokemon_habitat(i)
+        # Create metadata dictionary that will be stored as value of current key
         dict = {
             'pokemon': habitat.pokemon_species,
             'description': habitat_descriptions[habitat.name]
@@ -22,6 +28,7 @@ def habitats_dict():
     return habitats
 
 # Dictionary of descriptions for each habitat
+# Descriptions gotten from: https://theworldofpokemon.com/HabitatPage.html
 habitat_descriptions = {
     'cave': 'Little to no light penetrates into dark, damp caverns. Mineral-rich Ground-, Rock-, and Steel-types can often be found underground alongside a variety of Pokémon adapted to life in the dark. Some Dragon-types also have a preference to hide themselves deep within winding caves.',
     'forest': 'Most trainers are familiar with temperate, broadleaf forests. With mild, but seasonal weather and healthy tree growth, they play home to many common Pokémon. Many types can be found in these forests, but Grass-, Bug-, Flying-, and Normal-types are the most abundant. Novice trainers would do well starting their adventures in such areas.',

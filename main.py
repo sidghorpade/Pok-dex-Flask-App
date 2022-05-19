@@ -1,17 +1,15 @@
 # 
 # Project Header
 # 
-# Title: Pokedex
+# Title: PokeDex App
 # Class: CST 205
 # Date: 05/17/2022
-# Authors: Pedro Gutierrez
-#          Siddhi Ghoparde
-#          Jared Lopez-Leon
-#          Justin Garcia
+# Authors: Pedro Gutierrez, Siddhi Ghorpade, Jared Lopez-Leon, Justin Garcia
 # Abstract: Pokedex Web application serving as a wiki for information about things from the Pokemon universe.
 #           Search By Image feature made using an image classification model to predict a Pokemon based on an image.
 #           
 # Github Link: https://github.com/sidghorpade/Pokedex-Flask-App
+# Pokebase Github Link: https://github.com/PokeAPI/pokebase
 
 # main.py
 # Description: Holds Flask application code and all routes to web pages
@@ -20,7 +18,7 @@ import os
 from ensurepip import version
 from info import preprocess_bio, preprocess_evolution, preprocess_versions, preprocess_stats, preprocess_habitats
 from transformations import transform_image
-from generations import gen_number_dict, game_dict, preprocess_gen_pokemon
+from generations import gen_number_dict, game_dict, gen_descriptions, preprocess_gen_pokemon
 from habitats import habitats_dict
 import random
 import pokebase as pb
@@ -75,16 +73,19 @@ def generations(id=None):
     if id != None:
         id = gen_number_dict[id]
 
-    gen_pokemon = {}
+    # Loop through the generations, 8 in total
     for gen in range(1, 9):
         generations.append(pb.generation(gen))
     
+    gen_pokemon = {}
     gen_pokemon = preprocess_gen_pokemon(generations)
 
     # Key in this dictionary is the id passed into the route
     games = game_dict
+
+    descriptions = gen_descriptions
         
-    return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon, games=games)
+    return render_template('generations.html', id=id, generations=generations, gen_pokemon=gen_pokemon, games=games, descriptions=descriptions)
 
 # Worked on by: Pedro
 # Habitats route
@@ -105,33 +106,36 @@ def habitats(hab=None):
 @app.route('/info/<transformation>/<name>')
 def info(transformation, name):
     pokemon = pb.pokemon(name)
+    
+    # preprocess Pokemon's description
     bio = preprocess_bio(pokemon.species.flavor_text_entries)
 
     img_url = "https://cdn.traction.one/pokedex/pokemon/" + str(pokemon.id) + ".png"
-
     response = requests.get(img_url)
 
+    # transforms image to be send to the template
     img = Image.open(BytesIO(response.content))
     img_tag = transform_image(img, transformation)
 
     stats = preprocess_stats(pokemon.stats)
 
-    # try except to preprocess pokemon's evolution data
+    # try except to preprocess Pokemon's evolution data
     try:
         r = requests.get(pokemon.species.evolution_chain.url)
         data = r.json()
         evolution_dict = preprocess_evolution(data["chain"])
     except:
         print('error')
-
     # preprocess generation data
     gen_dict = preprocess_versions(pokemon.sprites.versions.__dict__, pokemon.id)
+
     habitats = {}
-    
+    # gets information of all habitats
     for i in range(1, 10):
         habitat = pb.pokemon_habitat(i)
         habitats[habitat.name] = habitat.pokemon_species
     
+    # preprocess habitat data
     habitat_list = preprocess_habitats(habitats, pokemon.name)
     no_habitats = len(habitat_list) == 0
     
