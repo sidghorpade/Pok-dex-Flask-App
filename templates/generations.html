@@ -1,3 +1,4 @@
+<!-- Worked on by: Pedro -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,38 +30,40 @@
         <h2 class="heading"><b>Gen <span class="gen-number">{{ generation.name.split('-')[-1] }}</span></b></h2>
 
         <div id="info-container" class="container">
-            <h2>{{ generation.main_region.name }}</h2>
             <div class="row justify-content-md-center">
                 <div class="col-md-auto">
+                    <h2 class="container-header">{{ generation.main_region.name.capitalize() }}</h2>
+                    <h5>{{ descriptions[generation.name]['description'] }} ({{ descriptions[generation.name]['year'] }})</h5>
                     <figure class="region-img-fig">
                         <img class="region-img" src="/static/images/regions/{{ generation.main_region.name }}.png" alt="{{ generation.main_region.name }}">
                     </figure>
                 </div>
                 <div class="col-md-auto">
+                    <h2 class="container-header">Games:</h2>
                     {% for game in games[generation.name.split('-')[-1]] %}
                         <figure class="box-art-fig">
                             <img class="box-art" src="/static/images/box_art/{{ generation.name.split('-')[-1] }}-{{ game }}.png" alt="{{ game }}">
                             {% if game == 'black2' %}
-                                <figcaption>Black 2</figcaption>
+                                <figcaption class="game-name">Pokemon Black 2</figcaption>
                             {% elif game == 'white2' %}
-                                <figcaption>White 2</figcaption>
+                                <figcaption class="game-name">Pokemon White 2</figcaption>
                             {% elif game == 'omegaruby' %}
-                                <figcaption>Omega Ruby</figcaption>
+                                <figcaption class="game-name">Pokemon Omega Ruby</figcaption>
                             {% elif game == 'alphasapphire' %}
-                                <figcaption>Alpha Sapphire</figcaption>
+                                <figcaption class="game-name">Pokemon Alpha Sapphire</figcaption>
                             {% elif game == 'brilliantdiamond' %}
-                                <figcaption>Brilliant Diamond</figcaption>
+                                <figcaption class="game-name">Pokemon Brilliant Diamond</figcaption>
                             {% elif game == 'shiningpearl' %}
-                                <figcaption>Shining Pearl</figcaption>
+                                <figcaption class="game-name">Pokemon Shining Pearl</figcaption>
                             {% else %}
-                                <figcaption>{{ game.capitalize() }}</figcaption>
+                                <figcaption class="game-name">Pokemon {{ game.capitalize() }}</figcaption>
                             {% endif %}
                         </figure>
                     {% endfor %}
 
                     <br>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gen{{ generation.id }}">Show Pokemon</button>
+                    <button id="show-pokemon-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gen{{ generation.id }}">Show Pokemon</button>
                 </div>
             </div>
         </div>

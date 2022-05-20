@@ -49,6 +49,10 @@ body {
     padding: 10px;
 }
 
+.container-header {
+    text-align: center;
+}
+
 .region-img-fig {
     padding: 10px;
 }
@@ -57,7 +61,16 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 350px;
+    width: 400px;
+}
+
+h5 {
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.game-name {
+    text-align: center;
 }
 
 .modal-title {
@@ -93,12 +106,21 @@ body {
     text-align: center;
 }
 
+#show-pokemon-btn {
+    margin-top: 5px;
+    margin: 0 auto;
+    display: block;
+}
+
 .box-art-fig {
     display: inline-block;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
 }
 
 .box-art {
-    width: 100px;
+    width: 180px;
     height: 100%;
-    margin-right: 10px;
+    margin-right: 20px;
 }

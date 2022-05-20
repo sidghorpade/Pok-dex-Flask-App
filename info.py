@@ -4,9 +4,10 @@
 
 from main import *
 
+# Returns preprocessed bio description for a pokemon
 def preprocess_bio(flavor_text_entries):
-    print(flavor_text_entries)
     for flavor_text in flavor_text_entries:
+        # Get the description from the API that's in English
         if flavor_text.language.name == "en":
             return flavor_text.flavor_text
 
@@ -103,21 +104,25 @@ def preprocess_versions(generations, id):
 def preprocess_stats(stats):
     stats_dict = {}
 
+    # Go through each stat to form new dictionary
     for stat in stats:
-        base_stat = stat.__dict__['base_stat']
-        name = stat.__dict__['stat'].__dict__['name']
+        base_stat = stat.base_stat
+        name = stat.stat.name
+        # Store stat name as key and value as dict value
         stats_dict[name] = base_stat
 
-    print(stats_dict)
     return stats_dict
 
 # Returns prepocessed list of habitats a Pokemon is found in
 def preprocess_habitats(habitats, name):
     habitat_list = []
 
+    # Loop through every habitat
     for habitat in habitats:
         pokemon = habitats[habitat]
+        # Loop through every Pokemon in current habitat
         for p in pokemon:
+            # If Pokemon is found, add to the habitat list
             if p.name == name:
                 habitat_list.append(habitat)
                 break

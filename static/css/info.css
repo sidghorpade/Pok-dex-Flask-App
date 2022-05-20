@@ -81,6 +81,10 @@ body {
     padding-top: 10px;
 }
 
+.stats-heading {
+    text-align: center;
+}
+
 #evolution-col {
     padding-left: 50px;
     padding-right: 50px;
